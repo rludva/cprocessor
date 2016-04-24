@@ -30,3 +30,8 @@
 
 # Debug files
 *.dSYM/
+
+# Binary files
+test_runner/test_runner
+application/interface
+cicanura
