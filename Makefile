@@ -2,12 +2,10 @@
 # Simple Makefile for my C Processor as command processor..
 #
 
-# Target for test_runner..
-test: \
-	./application/interface.o \
-	./core/test/test_cprocessor.o \
-	./core/source/cprocessor.o \
-	./test_runner/test_runner.o
+all: pre-build main-build
+
+pre-build: 
+	@echo ">>> PRE BUILD <<<"
 
 	@if [ -e ./cicanura ]; \
 	then \
@@ -16,7 +14,33 @@ test: \
 		git clone https://github.com/rludva/cicanura.git; \
 	fi;
 
-	(cd cicanura && make test);
+	(cd cicanura && make target);
+
+post-build:
+	@echo ">>> POST BUILD <<<"
+	@$(MAKE) --no-print-directory tests
+
+main-build: target 
+	@$(MAKE) --no-print-directory post-build
+
+# Run the tests..
+tests:
+	@if [ ! -e ./test_runner/test_runner ]; \
+	then \
+		echo "Error: ./test_runner/test_runner is not exist!"; \
+		echo ""; \
+	fi
+
+	@./cicanura/test_runner/test_runner
+	@./test_runner/test_runner
+
+# Target for test_runner..
+target: \
+	./application/interface.o \
+	./core/test/test_cprocessor.o \
+	./core/source/cprocessor.o \
+	./test_runner/test_runner.o
+
 
 	cc -o ./application/interface \
 		./application/interface.o \
@@ -33,8 +57,6 @@ test: \
 		./cicanura/core/source/collection.o \
 		./cicanura/core/source/ctest.o
 
-	# Run the tests..
-	@./test_runner/test_runner
 
 # C Processor
 ./core/source/cprocessor.o: \
@@ -76,3 +98,4 @@ clean:
 			rm $$soubor; \
 		fi; \
 	done
+	
