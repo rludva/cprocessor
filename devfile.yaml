@@ -9,7 +9,7 @@ attributes:
 projects:
   - name: cprocessor
     git:
-      remote:
+      remotes:
         origin: "https://github.com/rludva/cprocessor.git"
 
 components:
