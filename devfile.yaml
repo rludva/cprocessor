@@ -1,10 +1,40 @@
 schemaVersion: 2.1.0
 metadata:
   name: cprocessor
+<<<<<<< HEAD
 components:
   - name: tools
     container:
       image: quay.io/devfile/universal-developer-image:latest
+=======
+attributes:
+  controller.devfile.io/devworkspace-config:
+    name: devworkspace-config
+    namespace: openshift-devspaces
+  controller.devfile.io/storage-type: per-user
+projects:
+  - name: cprocessor
+    git:
+      remotes:
+        origin: "https://github.com/rludva/cprocessor.git"
+
+components:
+  - container:
+      command:
+        - /checode/entrypoint-volume.sh
+      cpuLimit: 500m
+      cpuRequest: 30m
+      env:
+        - name: CHE_DASHBOARD_URL
+          value: 'https://devspaces.apps.atemi.nutius.com'
+        - name: CHE_PLUGIN_REGISTRY_URL
+          value: 'https://devspaces.apps.atemi.nutius.com/plugin-registry/v3'
+        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+          value: 'http://plugin-registry.openshift-devspaces.svc:8080/v3'
+        - name: OPENVSX_REGISTRY_URL
+          value: ''
+      image: 'registry.redhat.io/devspaces/udi-rhel8@sha256:8de469cc9131a42092bd66e0f27a52bbc9b9a449235abf5b900d172a1bd3c985'
+>>>>>>> 6a7de67fd9b3676393809692e3f0eb99bab88be0
       memoryLimit: 3Gi
 projects:   
   - git:
