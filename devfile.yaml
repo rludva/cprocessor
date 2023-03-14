@@ -13,7 +13,7 @@ projects:
         origin: "https://github.com/rludva/cprocessor.git"
 
 components:
-    container:
+  - container:
       command:
         - /checode/entrypoint-volume.sh
       cpuLimit: 500m
